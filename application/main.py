@@ -6,7 +6,7 @@ import pandas as pd
 application = FastAPI(
     title='LabsTest - FastAPI Pipenv AWS EB',
     description='',
-    version='0.1',
+    version='0.11',
     docs_url='/',
 )
 model = load('application/model.joblib')
@@ -39,6 +39,11 @@ async def predict(iris: Iris):
         'prediction': lookup[y_pred],
         'confidence': f'{100 * max(y_prob):.2f}%',
     }
+
+
+@router.post('/healthCheck')
+async def healthCheck():
+    return {"ok"}
 
 
 application.include_router(router)
